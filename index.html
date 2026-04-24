@@ -1,13 +1,14 @@
 <!-- Referenes: https://github.com/Esri/twitter-template/blob/master/index.html 
  https://codepen.io/moshfequr9/pen/wXQbPR -->>
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="index.css">
   </head>
   <body>
     <!-- TODO: Create HTML elements for Twitter mockup inside body -->
-     <div class="header">
+     <div class="header" role="navigation">
+        <a href="#main-content" style="display: none;">Skip to main content</a>
         <ul class="header-boxes">
           <li>Home</li>
           <li>Moments</li>
@@ -45,7 +46,7 @@
             </div>
           </div>
         </div>
-         <div class="center-container">
+         <div class="center-container" id="main-content" role="main">
           <div class="tweet-body">
           <img src="./images/ratatouille.jpg" alt="Remy" class="pfp-tweet">
           <div class="tweet-text">
