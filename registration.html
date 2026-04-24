@@ -1,0 +1,191 @@
+<!-- References we used for the form template: https://www.w3schools.com/css/css_dropdowns.asp
+ https://www.w3schools.com/howto/howto_css_register_form.asp -->
+
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Highlander Day 2027 Registration</title>
+    <link rel="stylesheet" type="text/css" href="registration.css">
+  </head>
+  <body>
+    <form action="action_page.php">
+      <div class="container">
+        <h1>Highlander Day 2027 Register Form</h1>
+        <p>Please fill in this form to RSVP for Highlander Day!</p>
+        <hr>
+
+        <label for="First-Name"><b>First Name</b></label>
+        <input type="text" placeholder="Enter First Name" name="First Name" id="First-Name" required oninput="validateName(this)">
+        <span id="First-Name-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="Last-Name"><b>Last Name</b></label>
+        <input type="text" placeholder="Last Name" name="Last Name" id="Last-Name" required oninput="validateName(this)">
+        <span id="Last-Name-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="DOB"><b>Date of Birth</b></label>
+        <input type="date" name="DOB" id="DOB" required onchange="validateDOB()">
+        <span id="DOB-error" style="color: red; font-size: 13px;"></span>
+        <hr>
+
+        <label for="college"><b>College</b></label>
+        <select name="college" id="college" required onchange="validateSelect(this)">
+          <option value="">-- Select your college --</option>
+          <option value="bcoe">BCOE</option>
+          <option value="cnas">CNAS</option>
+          <option value="chass">CHASS</option>
+          <option value="business">SOB</option>
+          <option value="policy">SPP</option>
+          <option value="education">SOE</option>
+        </select>
+        <span id="college-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="major"><b>Major</b></label>
+        <select name="major" id="major" required onchange="validateSelect(this)">
+          <option value="">-- Select your major --</option>
+          <optgroup label="BCOE">
+            <option value="cs">Computer Science</option>
+            <option value="ce">Computer Engineering</option>
+            </optgroup>
+          <optgroup label="CNAS">
+            <option value="bio">Biology</option>
+            <option value="chem">Chemistry</option>
+            <option value="math">Mathematics</option>
+            </optgroup>
+          <optgroup label="CHASS">
+            <option value="psyc">Psychology</option>
+            <option value="soc">Sociology</option>
+            <option value="hist">History</option>
+            </optgroup>
+          <optgroup label="SOB">
+            <option value="bus">Business Administration</option>
+            <option value="acc">Accounting</option>
+            </optgroup>
+          <optgroup label="SPP">
+            <option value="pp">Public Policy</option>
+            </optgroup>
+          <optgroup label="SOE">
+            <option value="edu">Education</option>
+            </optgroup>
+        </select>
+        <span id="major-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="phone-number"><b>Phone Number</b></label>
+        <input type="tel" placeholder="Enter Phone Number (e.g. 951-827-0000)" name="Phone Number" id="phone-number" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="validatePhone(this)">
+        <span id="phone-number-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="email"><b>Email</b></label>
+        <input type="email" id="email" name="email" placeholder="Enter Email" oninput="validateEmail(this)">
+        <span id="email-error" style="color: red; font-size: 13px;"></span>
+
+        <label for="guests"><b>Number of Guests (minimum 1)</b></label>
+        <input type="number" id="guests" name="guests" min="1" max="10" oninput="validateGuests(this)">
+        <span id="guests-error" style="color: red; font-size: 13px;"></span>
+
+        <input type="checkbox" id="subscribe" name="subscribe" value="subscribe">
+        <label for="subscribe">Subscribe to UCR Events</label>
+        
+        <button type="submit" class="registerbtn">Register</button>
+
+        <button type="reset" class="resetbtn">Reset Form</button>
+      </div>
+    </form>
+  </body>
+
+  <script>
+    function validateName(input) {
+      const lettersOnly = /^[A-Za-z]+$/;
+      const error = document.getElementById(input.id + "-error");
+
+      if (input.value.trim() === "") {
+        input.style.border = "2px solid red";
+        error.textContent = "This field cannot be empty.";
+      } else if (!lettersOnly.test(input.value.trim())) {
+        input.style.border = "2px solid red";
+        error.textContent = "Only letters are allowed.";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+
+    function validateSelect(input) {
+      const error = document.getElementById(input.id + "-error");
+      if (input.value === "") {
+        input.style.border = "2px solid red";
+        error.textContent = "Please select an option.";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+
+    function validatePhone(input) {
+      const error = document.getElementById(input.id + "-error");
+      const pattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+      if (input.value.trim() === "") {
+        input.style.border = "2px solid red";
+        error.textContent = "Phone number cannot be empty.";
+      } else if (!pattern.test(input.value.trim())) {
+        input.style.border = "2px solid red";
+        error.textContent = "Use format: 123-456-7890";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+
+    function validateEmail(input) {
+      const error = document.getElementById(input.id + "-error");
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (input.value.trim() === "") {
+        input.style.border = "2px solid red";
+        error.textContent = "Email cannot be empty.";
+      } else if (!pattern.test(input.value.trim())) {
+        input.style.border = "2px solid red";
+        error.textContent = "Enter a valid email (e.g. name@example.com).";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+
+    function validateGuests(input) {
+      const error = document.getElementById(input.id + "-error");
+      const val = parseInt(input.value);
+      if (input.value === "") {
+        input.style.border = "2px solid red";
+        error.textContent = "Please enter the number of guests.";
+      } else if (isNaN(val) || val < 1) {
+        input.style.border = "2px solid red";
+        error.textContent = "Must be at least 1 guest.";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+
+    function validateDOB() {
+      const input = document.getElementById("DOB");
+      const error = document.getElementById("DOB-error");
+      const dob = new Date(input.value);
+      const today = new Date();
+
+      const age = today.getFullYear() - dob.getFullYear();
+      const monthDiff = today.getMonth() - dob.getMonth();
+      const dayDiff = today.getDate() - dob.getDate();
+      const actualAge = (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) ? age - 1 : age;
+
+      if (!input.value) {
+        input.style.border = "2px solid red";
+        error.textContent = "Please enter your date of birth.";
+      } else if (actualAge < 16) {
+        input.style.border = "2px solid red";
+        error.textContent = "You must be at least 16 years old to register.";
+      } else {
+        input.style.border = "2px solid green";
+        error.textContent = "";
+      }
+    }
+  </script>
+</html>
